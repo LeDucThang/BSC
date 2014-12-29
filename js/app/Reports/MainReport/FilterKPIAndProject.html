@@ -55,14 +55,13 @@
                         </accordion-group>
                         <!-- hien thi form loc theo trang thai -->
                         <accordion-group heading="TRẠNG THÁI ĐÁNH GIÁ" class="panel-info">
-                            <div ng-repeat="Color in FilterColor">
+                            <div ng-repeat="FColor in FilterColour">
                                 <div class="m-b-sm">
-                                    <label class="i-switch {{Color.Color}} pull-right">
-                                        <input type="checkbox" ng-model="UsedColors[Color.Color]"/>
+                                    <label class="i-switch {{FColor.ColorName}} pull-right">
+                                        <input type="checkbox" ng-model="UsedColors[FColor.ColorName]"/>
                                         <i></i>
                                     </label>
-                                    {{Color.Display}}
-                                    <span ng-bind="status(1)"></span>
+                                    {{FColor.Display}}
                                 </div>
                             </div>
                         </accordion-group>

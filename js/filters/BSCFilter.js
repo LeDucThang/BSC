@@ -22,10 +22,9 @@ app.filter('count', function () {
 });
 
 
-app.filter('groupBy',
-    function () {
+app.filter('groupBy', function () {
         return function (collection, key) {
             if (collection === null) return;
             return uniqueItems(collection, key);
         };
-    });
+});
