@@ -1,0 +1,37 @@
+<div class="modal-body">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <b>Nguyên nhân:</b>
+            {{items.IssueDetail.RootCauseAnalysis}};
+            {{items.IssueDetail.NewRootCauseAnalysis}}
+        </div>
+        <table class="table table-striped m-b-none">
+            <thead>
+            <tr>
+                <th style="width:40%">Hành động</th>
+                <th style="width:30%">Người thực hiện</th>
+                <th style="width:30%">Hạn hoàn thành</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ProposedAction in items.ProposedActions">
+                <td>{{ProposedAction.Action}}</td>
+                <td>{{ProposedAction.ActionPersonInCharged}}</td>
+                <td class="text-success">
+                    {{ProposedAction.CompletionDate}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <i>Ngày xác định: </i>
+            <b>{{items.IssueDetail.DefineDate}}</b>
+        </div>
+        <div class="col-md-6">
+            <i>Thời điểm trở lại: </i>
+            <b>{{items.IssueDetail.RecoveryDate}}</b>
+        </div>
+    </div>
+</div>

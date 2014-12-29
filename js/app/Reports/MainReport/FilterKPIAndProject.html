@@ -1,0 +1,85 @@
+﻿<!--Template filter for report-->
+
+<div class="settings panel panel-default">
+    <button class="btn btn-default no-shadow pos-abt" ui-toggle-class="active" target=".settings">
+        <i class="fa fa-spin fa-sort-alpha-asc icon text-info"></i>
+    </button>
+    <div class="panel-heading">
+        <b>
+            BỘ LỌC NÂNG CAO
+        </b>
+    </div>
+    <div ng-controller="AccordionCtrl">
+        <div class="panel-body bg-light lt" style="padding: 10px !important;">
+            <accordion close-others="oneAtATime">
+                <div class="row-row">
+                    <div class="col-xs-6-2 no-padder">
+                        <!-- loc theo chu de -->
+                        <accordion-group heading="CHỌN CHỦ ĐỀ" class="panel-info" is-open="status.isFirstOpen">
+                            <div ng-repeat="Theme in FilterTheme">
+                                <div class="m-b-sm">
+                                    <label class="i-switch bg-info pull-right">
+                                        <input type="checkbox" ng-model="UsedThemes[Theme.Theme]"/>
+                                        <i></i>
+                                    </label>
+                                    {{Theme.Display}}
+                                </div>
+
+                            </div>
+                        </accordion-group>
+                        <!-- loc theo tang -->
+                        <accordion-group heading="CHỌN TẦNG" class="panel-info">
+                            <div ng-repeat="Perspective in FilterPerspective">
+                                <div class="m-b-sm">
+                                    <label class="i-switch bg-info pull-right">
+                                        <input type="checkbox" ng-model="UsedPerspectives[Perspective.Perspective]"/>
+                                        <i></i>
+                                    </label>
+                                    {{Perspective.Display}}
+                                </div>
+
+                            </div>
+                        </accordion-group>
+                        <!-- hien thi form loc mot muc tieu -->
+                        <accordion-group heading="CHỌN MỤC TIÊU" class="panel-info">
+                            <!--<select class="form-control m-b" ng-model="showObjective" ng-options="kObjective for kObjective in kObjectiveGroup">
+                                <option value="">-- Tất cả mục tiêu --</option>
+                            </select>-->
+                            <div class="">
+                                <script type="text/ng-template" id="modalFilter.html">
+                                    <div ng-include="'app/Components/Reports/Option/Modal/ModalFilter.html'"></div>
+                                </script>
+                                <b><a ng-click="openFilter()"><span
+                                        class="button button-primary button-right">Open FIlter</span></a></b>
+                            </div>
+                        </accordion-group>
+                        <!-- hien thi form loc theo trang thai -->
+                        <accordion-group heading="TRẠNG THÁI ĐÁNH GIÁ" class="panel-info">
+                            <div ng-repeat="Color in FilterColor">
+                                <div class="m-b-sm">
+                                    <label class="i-switch {{Color.Color}} pull-right">
+                                        <input type="checkbox" ng-model="UsedColors[Color.Color]"/>
+                                        <i></i>
+                                    </label>
+                                    {{Color.Display}}
+                                    <span ng-bind="status(1)"></span>
+                                </div>
+                            </div>
+                        </accordion-group>
+                        <accordion-group heading="HIỂN THỊ CHỈ SỐ THÀNH PHẦN" class="panel-info">
+                            <form role="form">
+                                <div class="m-b-sm">
+                                    <label class="i-switch2 bg-info pull-right">
+                                        <input type="checkbox" checked>
+                                        <i></i>
+                                    </label>
+                                    Hiển thị chỉ số thành phần
+                                </div>
+                            </form>
+                        </accordion-group>
+                    </div>
+                </div>
+            </accordion>
+        </div>
+    </div>
+</div>

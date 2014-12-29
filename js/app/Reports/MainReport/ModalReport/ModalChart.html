@@ -1,0 +1,159 @@
+<div class="modal-body wrapper-lg panel-heading" style="padding:20px;background-color:#EEE;">
+    <table class="table" style="width:100%; float:left;">
+        <tbody>
+        <tr>
+            <td style="width:5%">
+                    <span class="button button-left button-{{items.KPISummaryColorInPeriod}}">
+                        {{items.KPIByYear.KPICode}}
+                    </span>
+            </td>
+            <td>
+                    <span class="button button-left button-info3" style="background-color:#fff;">
+                        {{ items.KPI.KPIName | limitTo: 96 }}{{items.KPI.KPIName.length > 94 ? '..' : ''}} &rarr;
+                        {{items.KPI.CompanyCode}}
+                    </span>
+            </td>
+            <td style="width:15%;">
+                    <span class="button button-info3" style="background-color:#fff;">
+                        {{items.KPIByYear.KPIPeriod}}
+                    </span>
+            </td>
+            <td style="width:15%;">
+                    <span class="button button-right button-target" style="background-color:#0070C0; color:#FFF;">
+                        {{items.KPIByYear.KPIEndYearTarget}} {{items.KPIByYear.KPIMeasurementUnit}}
+                    </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <div style="clear:both; margin-bottom:5px;">
+            <table class="table" style="margin-top:-20px;float:left; background-color:#6F6F6F; border-radius:8px;">
+                <tbody>
+                <tr>
+                    <td style="width: 35%; vertical-align:top; min-height:75px;">
+                            <span class="button button-left button-info3" style="font-weight:normal; height:100%;">
+                                <span style="font-size:11px; font-weight:bold;">CÔNG THỨC:</span><br/><br/>
+                                {{items.KPIByYear.KPIFormula}}
+                            </span>
+                    </td>
+                    <td style="width: 25%; vertical-align:top; min-height:75px;">
+                            <span class="button button-left button-info3" style="font-weight:normal; height:100%;">
+                                <span style="font-size:11px; font-weight:bold;">ĐỊNH NGHĨA:</span><br/><br/>
+                                {{items.KPIByYear.KPIRelatedTerms}}
+                            </span>
+                    </td>
+                    <td style="width: 10%;vertical-align:top; height:75px;">
+                            <span class="button button-left button-info3" style="font-weight:normal; height:100%;">
+                                <span style="font-size:11px; font-weight:bold;">LOẠI CS:</span><br/><br/>
+                                {{items.KPIByYear.KPIType}}
+                            </span>
+                    </td>
+                    <td style="width: 10%; vertical-align:top; height:75px;">
+                            <span class="button button-left button-info3"
+                                  style="font-weight:bold; font-size:12px; height:100%;">
+                                <span class="measure-acc-{{items.k_acc}}">Đo lũy kế</span><br/><br/>
+                                <span class="measure-inp-{{items.k_inp}}">Đo trong kỳ</span>
+                            </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="panel panel-{{items.KPIInPeriodMeasurementColorInPeriod}}" style="width:48%; float:left;">
+        <div class="panel-heading panel-heading2 font-bold" style="float:left;">
+            <span class="">&#10003; TRONG KỲ</span>
+        </div>
+        <div class="panel-body row-row" style="padding-right: 10px; padding-left: 0px; margin-top:15px;">
+            <div ui-jq="plot" ui-options="
+              [
+                { data: {{items.KPIInPeriodMeasurementTargetInTable}}, label: 'Kế hoạch trong kỳ', points: { show: true }, lines: { show: true, fill: true, fillColor: { colors: [{ opacity: 0.1 }, { opacity: 0.1}] } } },
+                { data: {{items.KPIInPeriodMeasurementResultInTable}}, label: 'Kết quả trong kỳ', points: { show: true }, lines: { show: true, fill: true, fillColor: { colors: [{ opacity: 0.1 }, { opacity: 0.1}] } } }
+              ],
+              {
+                colors: [ '#6B6B6B','#0070C0' ],
+                series: { shadowSize: 2 },
+                xaxis:{
+                    font: { color: '#aaa' },
+                    position: 'bottom',
+                    ticks: [
+                        [ 0, 'T1' ], [ 1, 'T2' ], [ 2, 'T3' ], [ 3, 'T4' ], [ 4, 'T5' ], [ 5, 'T6' ], [ 6, 'T7' ], [ 7, 'T8' ], [ 8, 'T9' ], [ 9, 'T10' ], [ 10, 'T11' ], [ 11, 'T12' ]
+                    ]
+                },
+                yaxis:{ font: { color: '#ccc'}, show: true },
+                grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#aaa' },
+                tooltip: true,
+                tooltipOpts: { content: '%s of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 0, y: 20 } }
+              }
+            " style="height:200px"></div>
+        </div>
+        <br>
+
+        <div class="row-row"
+             style="padding-right:18px;padding-left:18px;margin-bottom:10px ;margin-top:-30px !important;">
+            <table class="table-2">
+                <tbody>
+                <tr>
+                    <td data-ng-repeat="Target in items.KPIInPeriodMeasurementTargetInTable"><b
+                            class="button button-target" style="text-align:right;">{{Target[1]}}</b></td>
+                </tr>
+                <tr>
+                    <td data-ng-repeat="Result in items.KPIInPeriodMeasurementResultInTable"><b
+                            class="button button-{{items.KPIInPeriodMeasurementColorInTable[$index][1]}}"
+                            style="text-align:right;">{{Result[1]}}</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-{{items.KPIAccumulatedMeasurementColorInPeriod}}" style="width:48%; float:right;">
+        <div class="panel-heading panel-heading2 font-bold" style="float:right; text-align:right">
+            <span class="">LŨY KẾ &#10003;</span>
+        </div>
+        <div class="panel-body row-row" style="padding-right: 10px; padding-left: 0px; margin-top:15px;">
+            <div ui-jq="plot" ui-options="
+              [
+                { data: {{items.KPIAccumulatedMeasurementTargetInTable}}, label: 'Kế hoạch lũy kế', points: { show: true }, lines: { show: true, fill: true, fillColor: { colors: [{ opacity: 0.1 }, { opacity: 0.1}] } } },
+                { data: {{items.KPIAccumulatedMeasurementResultInTable}}, label: 'Kết quả lũy kế', points: { show: true }, lines: { show: true, fill: true, fillColor: { colors: [{ opacity: 0.1 }, { opacity: 0.1}] } } },
+              ],
+              {
+                colors: [ '#6B6B6B','#F46F22' ],
+                series: { shadowSize: 2 },
+                xaxis:{
+                    font: { color: '#aaa' },
+                    position: 'bottom',
+                    ticks: [
+                        [ 1, 'T1' ], [ 2, 'T2' ], [ 3, 'T3' ], [ 4, 'T4' ], [ 5, 'T5' ], [ 6, 'T6' ], [ 7, 'T7' ], [ 8, 'T8' ], [ 9, 'T9' ], [ 10, 'T10' ], [ 11, 'T11' ], [ 12, 'T12' ]
+                    ]
+                },
+                yaxis:{ font: { color: '#ccc' } },
+                grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#ccc' },
+                tooltip: true,
+                tooltipOpts: { content: '%s of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 0, y: 20 } }
+              }
+            " style="height:200px; margin-top:10px"></div>
+        </div>
+        <br>
+
+        <div class="row-row"
+             style="padding-right:18px;padding-left:18px;margin-bottom:10px ;margin-top:-30px !important;">
+            <table class="table-2">
+                <tbody>
+                <tr>
+                    <td data-ng-repeat="Target in items.KPIAccumulatedMeasurementTargetInTable"><b
+                            class="button button-target" style="text-align:right;">{{Target[1]}}</b></td>
+                </tr>
+                <tr>
+                    <td data-ng-repeat="Result in items.KPIAccumulatedMeasurementResultInTable"><b
+                            class="button button-{{items.KPIAccumulatedMeasurementColorInTable[$index][1]}}"
+                            style="text-align:right;">{{Result[1]}}</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
