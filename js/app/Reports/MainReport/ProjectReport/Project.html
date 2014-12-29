@@ -1,0 +1,71 @@
+﻿<div class="wrapper-md" ng-controller="ProjectController">
+    <div class="table-responsive table-hover table-striped">
+        <table class="table table-responsive table-hover table-striped table-bordered">
+            <thead class="thead-report">
+            <tr>
+                <th width="8%">ID</th>
+                <th width="32%">DỰ ÁN</th>
+                <th width="14%">QTDA</th>
+                <th width="13%">B.ĐẦU</th>
+                <th width="13%">K.THÚC</th>
+                <th width="13%">TRẠNG THÁI</th>
+                <th width="4%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="Project in Projects | offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+                <td width="8%">
+                        <span class="button button-{{Project.ProjectColorInPeriod}}">
+                            {{Project.Project.ProjectCode}}
+                        </span>
+                </td>
+                <td width="32%">
+                    <a target="_blank" ui-sref="report.project({projectId:project.pId})">
+                            <span popover="{{Project.Project.ProjectName}} @ {{Project.Project.ProjectImplementationUnit}}"
+                                  popover-animation="true" popover-trigger="mouseenter">
+                                {{ Project.Project.ProjectName | limitTo: 40 }}{{Project.Project.ProjectName.length > 40 ? '...' : ''}}
+                            </span>
+                    </a>
+                </td>
+                <td width="10%">
+                    {{Project.Project.ProjectManager}}
+                </td>
+                <td width="13%">
+                    {{Project.Project.ProjectStartDate}}
+                </td>
+                <td width="13%">
+                    {{Project.Project.ProjectEndDate}}
+                </td>
+                <td width="13%">
+                    {{Project.ProjectStatusInPeriod}}
+                </td>
+                <!-- show modal -->
+                <td>
+                    <script type="text/ng-template" id="ModalProjectIssue.html">
+                        <div ng-include="'app/Components/Reports/Option/Modal/Modal.html'"></div>
+                    </script>
+                    <div ng-show="Project.IssueDetail">
+                        <button class="button button-height-50 button-gt" ng-click="openProjectIssue({{Project}})">
+                            <i class=" icon-question fa-fw"></i>
+                        </button>
+                    </div>
+                </td>
+                <!-- ket thuc show Modal -->
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="9">
+                    <div class="btn-group">
+                        <button class="btn btn-default" ng-repeat="n in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
+                                ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                            <a href="#">{{n+1}}</a>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>

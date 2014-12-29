@@ -1,0 +1,45 @@
+﻿<div class="map-report-toi" ng-controller="MapControllerFinancial" style="padding:1px 0 0 0 !important">
+    <div gridster="gridsterOptions">
+        <ul>
+            <li gridster-item="widget" ng-repeat="widget in dashboard.widgets">
+                <div class="box-widget box-view">
+                    <div class="box-widget-content" style="height: 100%; color:#fff">
+                        <div style="height: 90%; padding:5px;" class="{{widget.mainColor}}">
+                            <div class="font-thin h5">
+                                <p><b>{{widget.code}}.</b> {{widget.name}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-xs-offset-6" style="height: 10%; padding:0;">
+                            <!--<div style="height: 100%; padding: 3px 0 0 5px;" class="col-xs-4">
+                                <div style="height: 100%;" class="{{widget.previous3}}" />
+                            </div>
+                            <div style="height: 100%; padding: 3px 0 0 5px;" class="col-xs-4">
+                                <div style="height: 100%;" class="{{widget.previous2}}" />
+                            </div>
+                            <div style="height: 100%; padding: 3px 0 0 5px;" class="col-xs-4">
+                                <div style="height: 100%;" class="{{widget.previous1}}" />
+                            </div>-->
+
+                            <div style="height:10px; padding: 3px 0 0 5px;" class="col-xs-4">
+                                <div style="height: 100%;" class="{{widget.previous3}}"/>
+                            </div>
+                            <div style="height:10px; padding: 3px 0 0 5px;" class="col-xs-4">
+                                <div style="height: 100%;" class="{{widget.previous2}}"/>
+                            </div>
+                            <div style="height:10px; padding: 3px 0 0 5px;" class="col-xs-4">
+                                <div style="height: 100%;" class="{{widget.previous1}}"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div data-gridster>
+        <ul>
+            <li data-gridster-item data-row="item.position[0]" data-col="item.position[1]" data-sizex="item.size.x"
+                data-sizey="item.size.y" ng-repeat="item in customItems"></li>
+        </ul>
+    </div>
+</div>

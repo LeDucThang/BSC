@@ -1,0 +1,148 @@
+<!-- hbox layout -->
+<div ng-controller="ReportController">
+    <!-- Filter -->
+    <!--inclde template Filter.html-->
+    <div ng-include="'js/app/Reports/MainReport/FilterKPIAndProject.html'"></div>
+
+
+    <!-- /settings -->
+
+    <div class="hbox hbox-auto-xs bg-light " ng-init="
+          app.settings.asideFixed = false;
+          app.settings.asideDock = false;
+          app.settings.container = false;
+          app.settings.asideFolded = true;
+          app.hideAside = false;
+          app.hideFooter = true;
+          ">
+        <!-- column -->
+        <!-- column -->
+        <div class="row" style="padding:2px;">
+            <div class="row-row" style="padding-bottom: 0px !important; height:48px; background-color:#edf1f2;">
+                <div class="col-md-4"
+                     style="height:48px; padding-bottom: 10px; padding-top: 10px !important; text-align:right;">
+                    <!-- chinh font size tbody cua bang -->
+                    <form class="form-vertical" style="float:left;">
+                        <div class="form-group" style="margin-bottom:10px; margin-left:10px;">
+                            <button class="btn btn-primary btn-info2 btn-xs-2 btn-rounded"
+                                    ng-model="PresentationMode" btn-checkbox btn-checkbox-true="1"
+                                    btn-checkbox-false="0">
+                            </button>
+                            <button class="btn btn-primary btn-info3 btn-xs-2 btn-rounded"
+                                    ng-model="ThemeReport" btn-checkbox btn-checkbox2-true="1"
+                                    btn-checkbox-false="0">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <div class="row-row">
+                        <form name="FilterMain" class="form-validation">
+                            <div class="form-group pull-right">
+                                <div class="col-md-3">
+                                    <div class="col-sm-10">
+                                        <button type="submit" ng-click="Submit(FilterMain)"
+                                                class="btn btn-primary" ng-disabled="form.$invalid"
+                                                style="margin-bottom: 7px; margin-top: 7px !important; width: 110px;">
+                                            View
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-sm-10">
+                                        <select ng-model="FilterMain.CompanyId" ui-jq="chosen"
+                                                class="form-control m-b" popover="Công ty" popover-placement="left"
+                                                popover-animation="true" popover-trigger="mouseenter"
+                                                style="margin-bottom:7px; margin-top:7px !important; width:110px;">
+                                            <optgroup>
+                                                <option ng-repeat="Company in Companies" value="{{Company.CompanyId}}">
+                                                    {{Company.CompanyCode}}
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-sm-10">
+                                        <select ng-model="FilterMain.Year" ng-options="Year for Year in Years"
+                                                class="form-control m-b" popover="Chọn năm" popover-placement="left"
+                                                popover-animation="true" popover-trigger="mouseenter"
+                                                style="margin-bottom: 7px; margin-top: 7px; width: 110px;">
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-sm-10">
+                                        <select ng-model="FilterMain.Period"
+                                                ng-options="Period.Value as Period.Text for Period in Periods"
+                                                class="form-control m-b" popover="Chọn kỳ" popover-placement="left"
+                                                popover-animation="true" popover-trigger="mouseenter"
+                                                style="margin-bottom: 7px; margin-top: 7px; width: 110px;">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="line b-b line-lg pull-in" style="margin-top:0px; margin-bottom:0px;"></div>
+    <div class="row-row">
+        <div class="nav-tabs-alt">
+            <ul class="nav nav-tabs nav-justified" style="font-weight:bold; font-size:16px;">
+                <li ng-class="{'active': tabs[0]}">
+                    <a href ng-click="tab(0)">BẢN ĐỒ</a>
+                </li>
+                <li ng-class="{'active': tabs[1]}">
+                    <a href ng-click="tab(1)">CHỈ SỐ</a>
+                </li>
+                <li ng-class="{'active': tabs[2]}">
+                    <a href ng-click="tab(2)">DỰ ÁN</a>
+                </li>
+                <li ng-class="{'active': tabs[3]}">
+                    <a href ng-click="tab(3)">VẤN ĐỀ</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row-row">
+            <div class="cell scrollable hover">
+                <div class="cell-inner">
+                    <div class="tab-content">
+                        <div class="tab-pane" ng-class="{'active': tabs[0]}">
+                            <div>
+                                <img src="../../../../BSC/img/map-report-title.png" style="width:100%;"/>
+                            </div>
+                            <!--inclde template map 1-financial-->
+                            <div data-ng-include=" 'js/app/Reports/MainReport/MapReport/Show.html' "></div>
+                            <!--&lt;!&ndash;inclde template map 2-customer&ndash;&gt;-->
+                            <!--<div ng-include="'js/app/Components/Reports/Option/Maps/2-Customer/show.html'"></div>-->
+                            <!--&lt;!&ndash;inclde template map 3-internalProcess&ndash;&gt;-->
+                            <!--<div ng-include="'js/app/Components/Reports/Option/Maps/3-InternalProcess/show.html'"></div>-->
+                            <!--&lt;!&ndash;inclde template map 4-learningAndGrowth&ndash;&gt;-->
+                            <!--<div ng-include="'js/app/Components/Reports/Option/Maps/4-LearningAndGrowth/show.html'"></div>-->
+                            <!--End include template map-->
+                        </div>
+                        <div class="tab-pane" ng-class="{'active': tabs[1]}">
+                            <!--include template report KPI-->
+                            <div ng-include="'js/app/Reports/MainReport/KPIReport/KPI.html'"></div>
+                        </div>
+                        <div class="tab-pane" ng-class="{'active': tabs[2]}">
+                            <!--Include template report project-->
+                            <div ng-include="'js/app/Reports/MainReport/ProjectReport/Project.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- /column -->
+<!-- Filter -->
+</div>
+<!-- /hbox layout -->
+</
+<div>

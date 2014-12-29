@@ -1,0 +1,162 @@
+﻿<div class="wrapper-md" style="background-color:#FFF;" ng-controller="KPIController">
+
+    <table class="table table-responsive table-hover table-striped table-bordered">
+        <thead class="thead-report">
+        <tr>
+            <th style="width:6%">MÃ</th>
+            <th style="width:31%">CHỈ SỐ</th>
+            <th style="width:8%; text-align:center;">T.SUẤT</th>
+            <th style="width:10%; text-align:center;">M.TIÊU</th>
+            <th style="width:10%; text-align:center;">KH.KỲ</th>
+            <th style="width:10%; text-align:center;">KQ.KỲ</th>
+            <th style="width:10%; text-align:center;">KH.LKẾ</th>
+            <th style="width:10%; text-align:center;">KQ.LKẾ</th>
+            <th style="width:5%"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="datagrid-big" ng-repeat="KPI in KPIs | offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+            {{KPI}}
+            <td style="width:6%">
+                    <span class="button button100 button-left button-{{KPI.KPISummaryColorInPeriod}}"
+                          style="font-size:0.9em;">
+                        {{KPI.KPIByYear.KPICode}}
+                        <br/>
+                        <span style="font-size:0.56em; text-transform:uppercase;font-weight:normal;margin-top:10px;">
+                            {{KPI.KPIByYear.KPIType}}
+                        </span>
+                    </span>
+            </td>
+            <td style="width:31%">
+                <a target="_blank"
+                   href="#/report/kpidetail?KPIByYearId={{KPI.KPIByYear.KPIByYearId}}&year={{FilterMain.Year}}&period={{FilterMain.Period}}">
+                        <span class="button button100 button-height-50 button-left button-info3"
+                              popover="{{KPI.KPIByYear.KPIFormula}} - {{KPI.KPIByYear.kRelTerms}}"
+                              popover-title="{{KPI.KPI.KPIName}}" popover-animation="true" popover-trigger="mouseenter">
+                            {{ KPI.KPI.KPIName | limitTo: 40 }}{{KPI.KPI.KPIName.length > 38 ? '..' : ''}} &raquo;
+                            <span style="color:#0064AC;">
+                                {{KPI.KPIByYear.KPIReportingCompany}}
+                            </span>
+                            <br/>
+                            <span class="themeshow themeshow-{{item.theme | limitTo:1}}">
+                                {{KPI.Objective.StrategicTheme1}}
+                            </span>
+                        </span>
+                </a>
+            </td>
+            <td style="width:8%; vertical-align:middle;">
+                    <span class="button button-height-50 button-left button-info3">
+                        <span class="btn-period">
+                            {{KPI.KPIByYear.KPIPeriod}}
+                        </span>
+                        <br/>
+                        <span style="font-size:0.7em;">DATA: {{KPI.LastPeriodDataResult}}</span>
+                    </span>
+            </td>
+            <td style="width:10%">
+                <b>
+                        <span class="button button-height-50 button-blue button-right" style="font-size:16px;">
+                            {{ KPI.KPIByYear.KPIEndYearTarget | limitTo: 9 }}{{ KPI.KPIByYear.KPIEndYearTarget.length > 7 ? '..' : ''}}
+                            <span class="datagrid-unit{{KPI.KPIByYear.KPIMeasurementUnit | limitTo:0}}{{KPI.KPIByYear.KPIMeasurementUnit.length > 1 ? '2' : ''}}">
+                                {{KPI.KPIByYear.KPIMeasurementUnit}}
+                            </span>
+                        </span>
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                        <span class="button button-height-50 button-target" style="font-size:16px;">
+                            {{ KPI.KPIInPeriodMeasurementTargetInPeriod | limitTo: 9 }}{{KPI.KPIInPeriodMeasurementTargetInPeriod.length > 7 ? '..' : ''}}
+                            <br/>
+                            <span style="font-size:0.5em; text-transform:uppercase;font-weight:normal;margin-top:10px;">
+                                HÀNG {{KPI.KPIByYear.KPIPeriod}}
+                            </span>
+                        </span>
+                </b>
+            </td>
+            <!-- show modal ket qua thuong ky -->
+            <td style="width:10%;">
+                <script type="text/ng-template" id="ModalKPIChart.html">
+                    <div ng-include="'app/Components/Reports/Option/Modal/ModalChart.html'"></div>
+                </script>
+                <b>
+                    <a ng-click="openKPIChart({{KPI}})">
+                            <span style=""
+                                  class="button button-height-50 button-{{KPI.KPIInPeriodMeasurementColorInPeriod}} button-right">
+                                <span style="font-size:16px;">
+                                    {{ KPI.KPIInPeriodMeasurementResultInPeriod | limitTo: 9 }}{{KPI.KPIInPeriodMeasurementResultInPeriod.length > 7 ? '..' : ''}}
+                                </span>
+                                <br/>
+                                <span style="margin-top:5px;float:right;"
+                                      ui-jq="sparkline"
+                                      ui-options="{{KPI.KPIInPeriodMeasurementResultInChart}}, {type:'bar', height:18, barWidth:5, barSpacing:1, barColor:'#fff'}"
+                                      class="sparkline inline">
+                                    Đang tải...
+                                </span>
+                            </span>
+                    </a>
+                </b>
+            </td>
+            <!-- ket thuc modal -->
+            <td style="width:10%">
+                <b>
+                        <span class="button button-height-50 button-target" style="font-size:16px;">
+                            {{ KPI.KPIAccumulatedMeasurementTargetInPeriod | limitTo: 9 }}{{KPI.KPIAccumulatedMeasurementTargetInPeriod.length > 7 ? '..' : ''}}
+                            <br/>
+                            <span style="font-size:0.5em; text-transform:uppercase;font-weight:normal;margin-top:10px;">LŨY KẾ</span>
+                        </span>
+                </b>
+            </td>
+            <!-- modal show bieu do -->
+
+            <td style="width:10%;">
+                <script type="text/ng-template" id="ModalKPIChart.html">
+                    <div ng-include="'js/app/Reports/MainReport/ModalReport/ModalChart.html'"></div>
+                </script>
+                <b>
+                    <a ng-click="openKPIChart({{KPI}})">
+                            <span style=""
+                                  class="button button-height-50 button-{{KPI.KPIAccumulatedMeasurementColorInPeriod}} button-right">
+                                <span style="font-size:16px;">
+                                    {{ KPI.KPIAccumulatedMeasurementResultInPeriod | limitTo: 9 }}{{KPI.KPIAccumulatedMeasurementResultInPeriod.length > 7 ? '..' : ''}}
+                                </span>
+                                <br/>
+                                <span style="margin-top:5px;float:right;"
+                                      ui-jq="sparkline"
+                                      ui-options="{{KPI.KPIAccumulatedMeasurementResultInChart}}, {type:'bar', height:18, barWidth:5, barSpacing:1, barColor:'#fff'}"
+                                      class="sparkline inline">
+                                    Đang tải...
+                                </span>
+                            </span>
+                    </a>
+                </b>
+            </td>
+            <!-- ket thuc modal -->
+            <!-- show modal -->
+            <td style="width:5%">
+                <script type="text/ng-template" id="ModalKPIIssue.html">
+                    <div ng-include="'js/app/Reports/MainReport/ModalReport/ModalIssue.html'"></div>
+                </script>
+                <div ng-show="KPI.IssueDetail">
+                    <button class="button button-height-50 button-gt" ng-click="openKPIIssue({{KPI}})">
+                        <i class=" icon-question fa-fw"></i>
+                    </button>
+                </div>
+            </td>
+            <!-- ket thuc show Modal -->
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="9">
+                <div class="btn-group">
+                    <button class="btn btn-default" ng-repeat="n in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
+                            ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                        <a href="#">{{n+1}}</a>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
